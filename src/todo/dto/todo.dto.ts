@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumberString, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+  IsString,
+} from 'class-validator';
 
 export class CreateTodoDto {
   @IsString()
@@ -24,4 +30,9 @@ export class CreateTodoItemUserDto {
   @IsString()
   @IsNumberString()
   todoItemId: number;
+}
+
+export class DeleteTodoDto {
+  @IsNumber()
+  todoId: number;
 }

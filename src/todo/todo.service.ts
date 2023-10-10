@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateTodoDto, CreateTodoItemUserDto } from './dto/todo.dto';
+import {
+  CreateTodoDto,
+  CreateTodoItemUserDto,
+  DeleteTodoDto,
+} from './dto/todo.dto';
 import { TodoItem, TodoItemUser } from '@prisma/client';
 
 @Injectable()
@@ -66,5 +70,22 @@ export class TodoService {
     } catch (err) {
       throw err;
     }
+  }
+
+  async deleteTodo(dto: DeleteTodoDto, userId: number): Promise<void | never> {
+    await this.prisma.todoItemUser.delete({
+      where: {
+        userId_todoItemId: {
+          todoItemId: dto.todoId,
+          userId: userId,
+        },
+      },
+    });
+
+    await this.prisma.todoItem.delete({
+      where: {
+        id: dto.todoId,
+      },
+    });
   }
 }
