@@ -36,3 +36,21 @@ export class DeleteTodoDto {
   @IsNumber()
   todoId: number;
 }
+
+class UpdateTodoDtoBase {
+  @IsNumber()
+  @IsNotEmpty()
+  id: number;
+
+  @IsString()
+  name?: string;
+
+  @IsString()
+  status?: string;
+
+  @IsDate()
+  @Type(() => Date)
+  deadline?: Date;
+}
+
+export type UpdateTodoDto = Partial<UpdateTodoDtoBase>;

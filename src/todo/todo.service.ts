@@ -4,6 +4,7 @@ import {
   CreateTodoDto,
   CreateTodoItemUserDto,
   DeleteTodoDto,
+  UpdateTodoDto,
 } from './dto/todo.dto';
 import { TodoItem, TodoItemUser } from '@prisma/client';
 
@@ -87,5 +88,27 @@ export class TodoService {
         id: dto.todoId,
       },
     });
+  }
+
+  async updateTodo(dto: UpdateTodoDto): Promise<TodoItem | never> {
+    try {
+      const todo = await this.prisma.todoItem.update({
+        where: {
+          id: dto.id,
+        },
+        data: dto,
+        select: {
+          id: true,
+          name: true,
+          status: true,
+          deadline: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
+      return todo;
+    } catch (err) {
+      throw err;
+    }
   }
 }
