@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateTodoDto } from './dto/todo.dto';
-import { TodoItem } from '@prisma/client';
+import { CreateTodoDto, CreateTodoItemUserDto } from './dto/todo.dto';
+import { TodoItem, TodoItemUser } from '@prisma/client';
 
 @Injectable()
 export class TodoService {
@@ -20,6 +20,35 @@ export class TodoService {
     } catch (err) {
       throw err;
     }
+  }
+
+  async createTodoItemUser(
+    dto: CreateTodoItemUserDto,
+  ): Promise<TodoItemUser | never> {
+    try {
+      const todoItemUser = await this.prisma.todoItemUser.create({
+        data: {
+          userId: dto.userId,
+          todoItemId: dto.todoItemId,
+          assignedBy: 'root',
+        },
+      });
+      return todoItemUser;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async createTodo(
+    createDto: CreateTodoDto,
+    userId: number,
+  ): Promise<TodoItem | never> {
+    const todoItem = await this.createTodoItem(createDto);
+    const createTodoItemuserDto = new CreateTodoItemUserDto();
+    createTodoItemuserDto.userId = userId;
+    createTodoItemuserDto.todoItemId = todoItem.id;
+    await this.createTodoItemUser(createTodoItemuserDto);
+    return todoItem;
   }
 
   async readAllTodo(userId: number): Promise<TodoItem[] | never> {

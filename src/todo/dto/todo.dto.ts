@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
 export class CreateTodoDto {
   @IsString()
@@ -14,4 +14,14 @@ export class CreateTodoDto {
   @IsNotEmpty()
   @IsString()
   status: string;
+}
+
+export class CreateTodoItemUserDto {
+  @IsString()
+  @IsNumberString()
+  userId: number;
+
+  @IsString()
+  @IsNumberString()
+  todoItemId: number;
 }

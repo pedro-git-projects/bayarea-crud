@@ -10,8 +10,9 @@ export class TodoController {
   constructor(private todoService: TodoService) {}
 
   @Post()
-  async postTodo(@Body() dto: CreateTodoDto) {
-    return this.todoService.createTodoItem(dto);
+  async postTodo(@Body() dto: CreateTodoDto, @Request() req: any) {
+    const userId = req.user.id;
+    return this.todoService.createTodo(dto, userId);
   }
 
   @Get()
