@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsDate, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateTodoDto {
@@ -7,6 +8,7 @@ export class CreateTodoDto {
 
   @IsNotEmpty()
   @IsDate()
+  @Type(() => Date)
   deadline: string;
 
   @IsNotEmpty()

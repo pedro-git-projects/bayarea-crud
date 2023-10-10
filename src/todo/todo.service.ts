@@ -7,7 +7,7 @@ import { TodoItem } from '@prisma/client';
 export class TodoService {
   constructor(private prisma: PrismaService) {}
 
-  async createTodo(dto: CreateTodoDto): Promise<TodoItem | never> {
+  async createTodoItem(dto: CreateTodoDto): Promise<TodoItem | never> {
     try {
       const todo = await this.prisma.todoItem.create({
         data: {

@@ -11,7 +11,7 @@ export class TodoController {
 
   @Post()
   async postTodo(@Body() dto: CreateTodoDto) {
-    return this.todoService.createTodo(dto);
+    return this.todoService.createTodoItem(dto);
   }
 
   @Get()
