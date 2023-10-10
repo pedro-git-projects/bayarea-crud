@@ -1,4 +1,4 @@
-** CRUD API Todo List Bayarea**
+**CRUD API Todo List Bayarea**
 
 Este projeto é um backend para um CRUD de uma lista de tarefas. Ele foi desenvolvido usando NestJS e Prisma.
 
@@ -66,7 +66,7 @@ O projeto estará disponível na porta 3000.
 Os endpoints do projeto são os seguintes:
 
 * **POST /signup** - Cria um novo usuário recebendo o token de acesso.
-* **POST /signin ** - Loga em um usuário existente recebendo o token de acesso.
+* **POST /signin** - Loga em um usuário existente recebendo o token de acesso.
 
 * **GET /todo** - Retorna uma lista de todos os itens da lista de tarefas do usuário logado.
 * **POST /todo** - Cria um novo item na lista de tarefas para o usuário logado.
