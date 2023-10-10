@@ -35,22 +35,20 @@ export class AuthService {
     }
   }
 
-  async signIn(dto: SignInDto): Promise<{access_token:string}|never> {
-      const user = await this.prisma.user.findUnique({
-          where: {
-              username: dto.username,
-          },
-      });
+  async signIn(dto: SignInDto): Promise<{ access_token: string } | never> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        username: dto.username,
+      },
+    });
 
-      if(!user) 
-          throw new ForbiddenException('incorrect credentials');
+    if (!user) throw new ForbiddenException('incorrect credentials');
 
-      const pswdMatch = await argon.verify(user.hash, dto.password);
+    const pswdMatch = await argon.verify(user.hash, dto.password);
 
-      if (!pswdMatch)
-          throw new ForbiddenException('incorrect credentials');
+    if (!pswdMatch) throw new ForbiddenException('incorrect credentials');
 
-      return this.singToken(user.id, user.username);
+    return this.singToken(user.id, user.username);
   }
 
   async singToken(
